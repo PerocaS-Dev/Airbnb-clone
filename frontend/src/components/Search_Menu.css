@@ -1,0 +1,86 @@
+.search_menu {
+  width: 70%;
+  height: 70px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2.5rem;
+}
+
+.menu_container {
+  padding-top: 2px;
+  width: 90%;
+  height: 85%;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hotels_selection {
+  width: 20%;
+  display: flex;
+  align-items: center;
+}
+
+.hotels_menu_selection {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.menu_selection {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+}
+
+.icon{
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgb(212, 207, 207);
+    margin-left: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.more_icon{
+  color: gray;
+}
+
+.selection_edge{
+  border-right: 1px solid rgb(212, 207, 207);
+}
+
+.option{
+  font-weight: 500;
+}
+
+.option_action{
+  font-weight: lighter;
+  color: gray;
+}
+
+.search_container{
+  width: 50px;
+  height: 50px;
+  background-color: #f6405d;
+  color: white;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.date_picker_input {
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  color: gray;
+  padding: 0;
+  cursor: pointer;
+}
