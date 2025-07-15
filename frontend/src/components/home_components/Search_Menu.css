@@ -64,6 +64,17 @@
   color: gray;
 }
 
+.option_input_action{
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  padding: 4px;
+  width: 100%;
+  outline: none;
+  cursor: pointer;
+
+}
+
 .search_container{
   width: 50px;
   height: 50px;
@@ -82,5 +93,15 @@
   font-size: 14px;
   color: gray;
   padding: 0;
+  cursor: pointer;
+}
+
+.location_select {
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  padding: 4px;
+  width: 100%;
+  outline: none;
   cursor: pointer;
 }

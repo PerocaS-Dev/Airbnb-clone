@@ -1,6 +1,6 @@
 import React from "react";
 import "./Discover.css";
-import gift from "../assets/gift_card.png";
+import gift from "../../assets/gift_card.png";
 
 const Discover = () => {
   return (
