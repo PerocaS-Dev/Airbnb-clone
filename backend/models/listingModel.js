@@ -6,26 +6,30 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 //This is where we create a new schema
-const listingSchema = new Schema(
-  {
-    title: String,
-    city: String,
-    apartmentType: String,
-    guests: Number,
-    bedroomCount: Number,
-    bathroomCount: Number,
-    pricePerNight: Number,
-    mainImage: String,
-    additionalImages: [String],
-    rating: Number,
-    host: {
-      name: String,
-      avatar: String,
-    },
-    amenities: [String],
-    description: String,
+const listingSchema = new Schema({
+  title: String,
+  city: String,
+  apartmentType: String,
+  guests: Number,
+  bedroomCount: Number,
+  bathroomCount: Number,
+  pricePerNight: Number,
+  mainImage: String,
+  additionalImages: {
+    livingroom: String,
+    kitchen: String,
+    bathroom: String,
+    bedroom: String,
+    view: String,
   },
-  { timestamps: true }
-);
+  rating: Number,
+  ratingCount: Number,
+  host: {
+    name: String,
+    avatar: String,
+  },
+  amenities: [String],
+  description: String,
+});
 
 module.exports = mongoose.model("listing", listingSchema); // will automatically create a collection named Workouts for us

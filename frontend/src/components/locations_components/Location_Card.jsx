@@ -2,14 +2,14 @@ import React from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import "./Location_Card.css";
 
-const Location_Card = () => {
+const Location_Card = ({listing}) => {
   return (
     <div className="location_card">
       <div className="home_info_container">
         <div className="display_photo_container">
           <img
             className="dp_image"
-            src="https://images.pexels.com/photos/13620069/pexels-photo-13620069.jpeg"
+            src={listing.mainImage}
             alt=""
           />
         </div>
@@ -17,8 +17,8 @@ const Location_Card = () => {
 
           <div className="card_header">
             <div className="heading_info">
-              <span className="home_summary">Entire home in New York</span>
-              <span className="home_title"> Big Apple Condo</span>
+              <span className="home_summary">{listing.title}</span>
+              <span className="home_city"> {listing.city}</span>
             </div>
             <div className="heart_container">
               <FavoriteBorderIcon />
@@ -26,14 +26,14 @@ const Location_Card = () => {
           </div>
           <span className="random_line"></span>
           <div className="home_info">
-            <span> 4-6 guests • Entire Home • 5 beds • 3 bath</span>
+            <span> {listing.guests} guests • {listing.apartmentType} • {listing.bedroomCount} beds • {listing.bathroomCount} bath</span>
             <span> Wifi • Kitchen • Free Parking</span>
           </div>
           <span className="random_line"></span>
           <div className="rating_info">
-            <span> 5.0 ⭐ (318 reviews)</span>
+            <span> {listing.rating} ⭐ ({listing.ratingCount})</span>
             <span className="price">
-              <strong>$325</strong> /night
+              <strong>${listing.pricePerNight}</strong> /night
             </span>
           </div>
         </div>
