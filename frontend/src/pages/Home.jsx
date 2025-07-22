@@ -26,7 +26,9 @@ const Home = () => {
         </div>
           <Content/>
           <Discover/>
-          <Footer/>
+          <div className="footer_container">
+            <Footer/>
+          </div>
       </div>
     </>
   );

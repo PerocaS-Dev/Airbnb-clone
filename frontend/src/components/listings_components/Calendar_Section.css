@@ -1,0 +1,13 @@
+.main_calendar_section {
+  margin: 2rem 0;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 12px;
+}
+
+#checkInOut {
+  padding: 12px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}

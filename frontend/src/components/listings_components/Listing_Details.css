@@ -1,0 +1,212 @@
+.listing_details{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.listing_title h2{
+  font-weight: 500;
+  font-size: 30px;
+}
+.listing_header_details{
+  width: 100%;
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  justify-content: space-between;
+}
+
+.listing_header_details span{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.add_color{
+  color: #f6405d;
+}
+
+.grid_gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  height: auto;
+}
+
+.main_image img,
+.grid_right img {
+  aspect-ratio: 4 / 3; /* or try 3 / 2 */
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.grid_right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 1fr;
+  gap: 10px;
+}
+
+.more_listing_info{
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  height: auto;
+}
+
+.reserve_section{
+  margin-left: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.listing_info{
+  display: flex;
+  flex-direction: column;
+}
+
+.hosting_info{
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(116, 116, 116, 0.425);
+}
+
+.host_image {
+  width: 50px;
+  height: 50px;
+  border: 1px solid rgba(116, 116, 116, 0.425);
+  border-radius: 50%; 
+  overflow: hidden;   
+}
+
+.host_image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  
+  border-radius: 50%;  
+}
+
+.hosted_by{
+  display: flex;
+  flex-direction: column;
+}
+
+.hosted_by_title{
+  font-size: 25px;
+  font-weight: 450;
+}
+
+.hosted_by_house_info{
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.booking_details{
+  margin-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(116, 116, 116, 0.425);
+}
+
+.booking_detail{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.b_details{
+  display: flex;
+  flex-direction: column;
+}
+
+.detail_explained{
+  margin-top: 5px;
+  font-size: 13px;
+  color: gray;
+}
+
+.detail_title{
+  font-weight: 500;
+}
+
+.description_info{
+  padding: 20px 0px;
+  border-bottom: 1px solid rgba(116, 116, 116, 0.425);
+}
+
+.show_more{
+  font-size: 13px;
+  text-decoration: underline;
+}
+
+.sleep_section{
+  padding: 20px 0px;
+  border-bottom: 1px solid rgba(116, 116, 116, 0.425);
+}
+
+.sleep_section p{
+  margin-top: 5px;
+}
+
+.sleep_title{
+  font-size: 25px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.bedroom_image {
+  width: 300px;
+  height: 200px;
+  border-radius: 1rem; 
+  overflow: hidden;   
+}
+
+.bedroom_image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  
+  border-radius: 1rem;  
+}
+
+.what_place_offers{
+  padding: 20px 0px;
+  border-bottom: 1px solid rgba(116, 116, 116, 0.425);
+}
+
+.place_offers_title{
+  font-size: 25px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.offers_container{
+  display: flex;
+  gap: 100px;
+}
+
+.offer_column{
+  display: flex;
+  flex-direction: column;
+}
+
+.offer_column span{
+  font-weight: lighter;
+  margin-bottom: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.more_amenities{
+  margin-top: 15px;
+  border: 1px solid;
+  border-radius: 0.5rem;
+  width: 200px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+

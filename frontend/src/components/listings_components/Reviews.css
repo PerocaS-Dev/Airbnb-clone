@@ -1,0 +1,101 @@
+.reviews{
+    width: 100%;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(116, 116, 116, 0.425);
+}
+
+.review_title{
+    font-weight: 500;
+}
+
+.rating_section {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.rating_column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.rating_item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.rating_label {
+  flex: 1;
+  font-size: 0.9rem;
+  color: #222;
+}
+
+.rating_bar_container {
+  flex: 2;
+  height: 6px;
+  background-color: #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.rating_bar_fill {
+  height: 100%;
+  background-color: #222;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.rating_value {
+  font-size: 0.85rem;
+  min-width: 30px;
+  text-align: right;
+  color: #333;
+}
+
+.all_reviews{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.reviewer_profile{
+    display: flex;
+    gap: 20px;
+}
+
+.reviewer_profile img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.reviewer_name{
+    font-weight: 500;
+}
+
+.review_date{
+    font-size: 13px;
+    color: gray;
+}
+
+.reviewer_review{
+    margin-top: 10px;
+}
+
+.more_reviews_button{
+  width: 180px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid;
+  border-radius: 0.5rem;
+  font-weight: 500;
+}

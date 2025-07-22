@@ -16,7 +16,7 @@ const Header = () => {
   //Page specific conditions
 
   const isAdminPage = path.startsWith("/admin");
-  const isHotelInfoPage = path.startsWith("/hotel/");
+  const isHotelInfoPage = path.startsWith("/listing");
   const isLocationsPage = path.startsWith("/locations");
 
   //Combining conditions that share the same style

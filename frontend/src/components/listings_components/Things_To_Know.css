@@ -1,0 +1,53 @@
+
+.things_to_know{
+  width: 100%;
+  padding: 30px 0;
+}
+
+.things_to_know_title{
+  font-size: 25px;
+  font-weight: 500;
+}
+.things-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  gap: 20px;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  flex-wrap: wrap;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 30%;
+  min-width: 280px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.show-more {
+  color: #007bff;
+  cursor: pointer;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.extra {
+  margin-top: 5px;
+}

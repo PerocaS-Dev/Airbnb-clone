@@ -1,0 +1,67 @@
+.listing_footer {
+  width: 100%;
+  background-color: white;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(116, 116, 116, 0.425);
+  color: #333;
+  font-family: "Arial", sans-serif;
+}
+
+.listing_footer_title {
+  font-size: 25px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.section-title {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.locations-grid,
+.stays-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0.5rem 1rem;
+  margin-bottom: 2rem;
+}
+
+.city-link,
+.stay-link {
+  color: #555;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.city-link:hover,
+.stay-link:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #777;
+  flex-wrap: wrap;
+}
+
+.breadcrumb-link {
+  color: #555;
+  cursor: pointer;
+  margin: 0 0.25rem;
+}
+
+.breadcrumb-separator {
+  margin: 0 0.25rem;
+}
+
+.breadcrumb-current {
+  margin: 0 0.25rem;
+  color: #000;
+  font-weight: bold;
+}

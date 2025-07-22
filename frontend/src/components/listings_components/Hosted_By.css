@@ -1,0 +1,75 @@
+.host-info {
+  width: 100%;
+  padding: 2rem 0;
+  border-bottom: 1px solid rgba(116, 116, 116, 0.425);
+  font-family: "Arial", sans-serif;
+}
+
+.host-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.host-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.host-name {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.host-join-date {
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.host-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.host-description {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.contact-button {
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: 0.2s;
+}
+
+.contact-button:hover {
+  background-color: #f7f7f7;
+}
+
+.airbnb-warning {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.warning-icon {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+}
