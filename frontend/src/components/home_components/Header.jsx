@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { format } from 'date-fns';
+import { format } from "date-fns";
 import LanguageIcon from "@mui/icons-material/Language";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
@@ -18,9 +18,12 @@ const Header = () => {
   const isAdminPage = path.startsWith("/admin");
   const isHotelInfoPage = path.startsWith("/listing");
   const isLocationsPage = path.startsWith("/locations");
+  const isLogin = path.startsWith("/login");
+  const isCreateListing = path.startsWith("/create-listing")
 
   //Combining conditions that share the same style
-  const isMinimalHeader = isAdminPage || isHotelInfoPage || isLocationsPage;
+  const isMinimalHeader =
+    isAdminPage || isHotelInfoPage || isLocationsPage || isLogin || isCreateListing;
 
   //choosing the logo variant based on the header background
   const logoSrc = isMinimalHeader ? redLogo : logo;
@@ -34,8 +37,12 @@ const Header = () => {
   const checkOut = location.state?.checkOut;
   const guests = location.state?.guest_count || "1";
 
-  const formattedCheckIn = checkIn ? format(new Date(checkIn), 'MMM d') : 'start date';
-  const formattedCheckOut = checkOut ? format(new Date(checkOut), 'MMM d') : 'end date';
+  const formattedCheckIn = checkIn
+    ? format(new Date(checkIn), "MMM d")
+    : "start date";
+  const formattedCheckOut = checkOut
+    ? format(new Date(checkOut), "MMM d")
+    : "end date";
 
   return (
     <header
@@ -54,29 +61,33 @@ const Header = () => {
           </div>
         )}
 
-        {isMinimalHeader && isLocationsPage &&(
+        {isMinimalHeader && isLocationsPage && (
           <div className="search_info">
             {/* This is where I want to display the query params */}
             <span className="search_tag">{loc}</span>
-            <span className="search_tag date_tag">{formattedCheckIn} → {formattedCheckOut}</span>
+            <span className="search_tag date_tag">
+              {formattedCheckIn} → {formattedCheckOut}
+            </span>
             <span className="search_tag">{guests} guest(s)</span>
           </div>
         )}
 
-        <div className="menu_options">
-          <span className="menu_option">Become a Host</span>
-          <span className="menu_option">
-            <LanguageIcon sx={{ fontSize: 15 }} />
-          </span>
-          <span className="menu_option menu_button">
-            <span>
-              <MenuIcon sx={{ fontSize: 25 }} />
+        {isMinimalHeader && !isLogin && (
+          <div className="menu_options">
+            <span className="menu_option">Become a Host</span>
+            <span className="menu_option">
+              <LanguageIcon sx={{ fontSize: 15 }} />
             </span>
-            <span>
-              <AccountCircleTwoToneIcon sx={{ fontSize: 35 }} />
+            <span className="menu_option menu_button">
+              <span>
+                <MenuIcon sx={{ fontSize: 25 }} />
+              </span>
+              <span>
+                <AccountCircleTwoToneIcon sx={{ fontSize: 35 }} />
+              </span>
             </span>
-          </span>
-        </div>
+          </div>
+        )}
       </div>
     </header>
   );
