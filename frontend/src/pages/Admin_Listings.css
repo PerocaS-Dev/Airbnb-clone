@@ -1,0 +1,23 @@
+.admin_listings{
+    width: 100%;
+    max-width: 100vw;
+    height: 100%;
+    max-height: 100vh;
+    overflow: hidden;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 80px;
+}
+
+.my_listings_title{
+    padding-top: 50px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(116, 116, 116, 0.295);
+}
+
+.my_listings_title p{
+    font-size: 25px;
+    color: rgb(109, 108, 108);
+    
+}

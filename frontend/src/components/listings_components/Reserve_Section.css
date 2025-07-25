@@ -26,7 +26,7 @@
 
 .checkin_box,
 .checkout_box {
-  padding: 12px;
+  padding: 8px 12px;
   border-bottom: 1px solid #ccc;
 }
 
@@ -34,11 +34,9 @@
   border-right: 1px solid #ccc;
 }
 
+
 .guests_box {
   grid-column: span 2;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 12px;
 }
 
@@ -53,8 +51,8 @@
   color: #555;
 }
 
-.guest_input {
-  width: 15px;
+.guest_text select {
+  width: 100%;
   border: none;
 }
 
@@ -74,6 +72,7 @@
     align-items: center;
     justify-content: center;
     background-color:#f6405d;
+    cursor: pointer;
     color: white;
 }
 

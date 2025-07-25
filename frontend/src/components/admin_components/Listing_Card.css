@@ -1,0 +1,82 @@
+.listing_card{
+    width: 100%;
+    padding: 20px 0px;
+    border-bottom: 1px solid rgba(116, 116, 116, 0.295);
+}
+
+.card_buttons{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.card_buttons button{
+    width: 250px;
+    height: 35px;
+    border: none;
+    border-radius: 0.5rem;
+    color: white;
+}
+
+.blue_button{
+    background-color: #4f54ef;
+}
+
+.pink_button{
+    background-color: rgb(197 52 75);
+}
+
+.img_container{
+    width: 250px;
+    height: 180px;
+    overflow: hidden;
+    object-fit: fill;
+    border-radius: 0.5rem;
+    margin-bottom: 15px;
+}
+
+.img_container img{
+    width: 100%;
+    height: 100%;
+}
+
+.listing_details{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.listing_info{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.listing_header{
+    display: flex;
+    flex-direction: column;
+}
+
+.short_desciption{
+    font-weight: lighter;
+}
+
+.listing_title{
+    font-size: 25px;
+}
+
+.random_line{
+    width: 50px;
+    height: 1px;
+    border-bottom: 1px solid rgba(116, 116, 116, 0.425);
+}
+
+.home_info{
+    display: flex;
+    flex-direction: column;
+}
+
+.rating_info{
+    display: flex;
+    gap: 200px;
+}

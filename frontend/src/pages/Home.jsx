@@ -2,7 +2,7 @@ import React from "react";
 import Search_Menu from "../components/home_components/Search_Menu";
 import Content from "../components/home_components/Content";
 import Discover from "../components/home_components/Discover";
-import Footer from "../components/home_components/Footer";
+import Footer from "../components/shared_components/Footer";
 import "./Home.css";
 
 

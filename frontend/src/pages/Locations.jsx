@@ -3,13 +3,15 @@ import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import Filters from '../components/locations_components/Filters'
 import Location_Card from '../components/locations_components/Location_Card'
+import { ListingProvider, useListingContext} from '../context/ListingContext'
 import './Locations.css'
 
 
 const Locations = () => {
-  const [allListings, setAllListings] = useState([]);
+
   const [filteredListings, setFilteredListings] = useState([]);
   const location = useLocation();
+  const {listings, dispatch} = useListingContext();
 
   useEffect(() => {
 
@@ -18,7 +20,8 @@ const Locations = () => {
       const json = await response.json()
 
       if(response.ok){
-        setAllListings(json);
+        dispatch({type: "SET_LISTINGS", payload: json})
+        
       }
     }
 
@@ -32,14 +35,14 @@ const Locations = () => {
     const selectedCity = searchParams.get("location");
 
     if (selectedCity && selectedCity !== 'All locations'){
-      const filtered = allListings.filter(
+      const filtered = listings.filter(
         (listing) => listing.city.toLowerCase() === selectedCity.toLowerCase()
       );
       setFilteredListings(filtered);
     }else{
-      setFilteredListings(allListings);
+      setFilteredListings(listings);
     }
-  }, [location.search, allListings])
+  }, [location.search, listings])
 
 
   return (

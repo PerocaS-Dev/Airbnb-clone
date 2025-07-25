@@ -40,10 +40,10 @@ const Create_Listing = () => {
 
         <div className="form_grid">
           <div className="grid_section">
-            <div className="listing_info">
+            <div className="info_for_listing">
               <p>Listing Ttle</p>
               <input type="text" />
-              <div className="listing_info">
+              <div className="info_for_listing">
                 <p>Location</p>
                 <select name="locations" id="locations">
                   <option value="Select a location" id="default-value">
@@ -65,7 +65,7 @@ const Create_Listing = () => {
               </div>
             </div>
 
-            <div className="listing_info listing_description">
+            <div className="info_for_listing listing_description">
               <p>Description</p>
               <textarea name="description" id="description"></textarea>
             </div>
@@ -84,11 +84,11 @@ const Create_Listing = () => {
 
           <div className="grid_section">
             <div className="two_split">
-              <div className="listing_info price_type">
+              <div className="info_for_listing price_type">
                 <p>Price</p>
                 <input type="number" placeholder="0" />
               </div>
-              <div className="listing_info price_type">
+              <div className="info_for_listing price_type">
                 <p>Type</p>
                 <select name="listing_type" id="listing_type">
                   <option value="Select a location" id="default-value">
@@ -104,21 +104,21 @@ const Create_Listing = () => {
             </div>
 
             <div className="three_split">
-              <div className="listing_info listing_rooms">
+              <div className="info_for_listing listing_rooms">
                 <p>Guests</p>
                 <input type="number" placeholder="0" />
               </div>
-              <div className="listing_info listing_rooms">
+              <div className="info_for_listing listing_rooms">
                 <p>Bedrooms</p>
                 <input type="number" placeholder="0" />
               </div>
-              <div className="listing_info listing_rooms">
+              <div className="info_for_listing listing_rooms">
                 <p>Bathrooms</p>
                 <input type="number" placeholder="0" />
               </div>
             </div>
 
-            <div className="listing_info">
+            <div className="info_for_listing">
               <p>Amenities</p>
               <div className="adding_amenities">
                 <input
@@ -142,7 +142,7 @@ const Create_Listing = () => {
         </div>
 
         <div className="uploading_image">
-          <div className="listing_info images_input">
+          <div className="info_for_listing images_input">
             <div className="adding_images">
               <p>Images</p>
 

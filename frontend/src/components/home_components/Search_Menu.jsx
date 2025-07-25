@@ -3,6 +3,7 @@ import "./Search_Menu.css";
 import SearchIcon from "@mui/icons-material/Search";
 import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_red.css";
+import { useDateContext } from "../../context/DateContext";
 import { useNavigate } from "react-router-dom";
 
 const Search_Menu = () => {
@@ -15,36 +16,39 @@ const Search_Menu = () => {
     "Cape Town",
     "Thailand",
   ];
-  const [selectedLocation, setSelectedLocation] = useState("")
-  const [checkInDate, setCheckInDate] = useState(null);
-  const [checkOutDate, setCheckOutDate] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState("");
   const [guests, setGuests] = useState();
+  const { startDate, endDate, setDates } = useDateContext(); //using my custom context
 
-  const handleSearch = () =>{
+  const handleDateChange = (selectedDates) => {
+    if (selectedDates.length === 2) {
+      setDates(selectedDates[0], selectedDates[1]);
+    }
+  };
+
+  const handleSearch = () => {
     if (!selectedLocation) {
-      alert('Please select a loaction');
+      alert("Please select a loaction");
       return;
     }
 
     //building the query string, this is the one that wil be displayed in the url
-    const query = new URLSearchParams ({
+    const query = new URLSearchParams({
       location: selectedLocation,
     }).toString();
 
     //This is not going to be on the url but i still need to use it in the header
     const extraData = {
-      checkIn: checkInDate,
-      checkOut: checkOutDate,
+      checkIn: startDate,
+      checkOut: endDate,
       guest_count: guests,
-    }
+    };
 
     //Navigate with the query string
-    navigate(`/locations?${query}`, {state: extraData});
-
-  }
+    navigate(`/locations?${query}`, { state: extraData });
+  };
 
   return (
-
     <div className="search_menu">
       <div className="menu_container">
         <div className="hotels_selection selection_edge">
@@ -70,8 +74,8 @@ const Search_Menu = () => {
           <Flatpickr
             className="option_action date_picker_input"
             placeholder="Add date"
-            value={checkInDate}
-            onChange={([date]) => setCheckInDate(date)}
+            value={[startDate]}
+            onChange={handleDateChange}
             options={{
               minDate: "today",
               dateFormat: "Y-m-d",
@@ -84,8 +88,8 @@ const Search_Menu = () => {
           <Flatpickr
             className="option_action date_picker_input"
             placeholder="Add date"
-            value={checkOutDate}
-            onChange={([date]) => setCheckOutDate(date)}
+            value={[endDate]}
+            onChange={handleDateChange}
             options={{
               minDate: "checkInDate || today",
               dateFormat: "Y-m-d",
@@ -95,7 +99,12 @@ const Search_Menu = () => {
 
         <div className="menu_selection">
           <span className="option">Guests</span>
-          <input className="option_input_action" type="number" placeholder="Add guests" onChange={(e) => setGuests(e.target.value)}/>
+          <input
+            className="option_input_action"
+            type="number"
+            placeholder="Add guests"
+            onChange={(e) => setGuests(e.target.value)}
+          />
         </div>
       </div>
 

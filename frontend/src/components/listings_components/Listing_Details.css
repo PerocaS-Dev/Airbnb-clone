@@ -1,7 +1,10 @@
-.listing_details{
-  width: 100%;
+.listing_detail{
   display: flex;
   flex-direction: column;
+}
+
+.listing_detail p {
+  color: black;
 }
 
 .listing_title h2{

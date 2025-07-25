@@ -25,7 +25,7 @@ import Calendar_Section from "./Calendar_Section";
 
 const Listing_Details = () => {
   return (
-    <div className="listing_details">
+    <div className="listing_detail">
       <div className="listing_header">
         <div className="listing_title">
           <h2>Loft in GreenPoint</h2>

@@ -2,11 +2,14 @@ import React from "react";
 import { useState } from "react";
 import { enUS } from "date-fns/locale";
 import { DateRange } from "react-date-range";
+import { useDateContext } from "../../context/DateContext";
 import "react-date-range/dist/styles.css"; // main css
 import "react-date-range/dist/theme/default.css"; // theme css
 import "./Calendar_Section.css";
 
 const Calendar_Section = () => {
+  const { startDate, endDate, setDates } = useDateContext(); //using my custom context
+
   const [range, setRange] = useState([
     {
       startDate: new Date(),
@@ -14,6 +17,12 @@ const Calendar_Section = () => {
       key: "selection",
     },
   ]);
+
+  const onDateRangeChange = (item) => {
+    const selection = item.selection;
+    setRange([selection]);
+    setDates(selection.startDate, selection.endDate);
+  };
 
   return (
     <>
@@ -32,7 +41,7 @@ const Calendar_Section = () => {
           <DateRange
             locale={enUS}
             editableDateInputs={true}
-            onChange={(item) => setRange([item.selection])}
+            onChange={onDateRangeChange}
             moveRangeOnFirstSelection={false}
             ranges={range}
             months={2}
