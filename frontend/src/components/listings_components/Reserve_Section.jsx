@@ -9,7 +9,7 @@ import { useAuthContext } from "../../context/AuthContext";
 import { differenceInCalendarDays } from "date-fns";
 import "./Reserve_Section.css";
 
-const Reserve_Section = () => {
+const Reserve_Section = ({listing}) => {
   const { startDate, endDate, setDates } = useDateContext(); //using my custom context
   const {isLoggedIn, user, logout} = useAuthContext();
 
@@ -33,7 +33,7 @@ const Reserve_Section = () => {
     }
   };
 
-  const pricePerNight = 79;
+  const pricePerNight = listing.pricePerNight;
   const cleaningFee = 62;
   const serviceFee = 83;
   const occupancyFee = 29;

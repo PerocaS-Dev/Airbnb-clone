@@ -1,12 +1,66 @@
-import React from "react";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
+import { useAuthContext } from "../context/AuthContext";
+import { useListingContext } from "../context/ListingContext";
+import {
+  DEFAULT_ADDITIONAL_IMAGES,
+  DEFAULT_HOST_AVATAR,
+} from "../utils/defaultAssets";
 import "./Create_Listing.css";
 
 const Create_Listing = () => {
+  const [title, setTitle] = useState("");
+  const [city, setCity] = useState("");
+  const [description, setDescription] = useState("");
+  const [pricePerNight, setPricePerNight] = useState(0);
+  const [apartmentType, setApartmentType] = useState("");
+  const [guests, setGuests] = useState(0);
+  const [bedroomCount, setBedroomCount] = useState(0);
+  const [bathroomCount, setBathroomCount] = useState(0);
   const [amenityInput, setAmenityInput] = useState("");
   const [amenities, setAmenities] = useState([]);
   const [previewImage, setPreviewImage] = useState(null);
+
   const fileInputRef = useRef(null);
+  const { user } = useAuthContext();
+  const { dispatch } = useListingContext();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const newListing = {
+      title,
+      city,
+      apartmentType,
+      guests,
+      bedroomCount,
+      bathroomCount,
+      pricePerNight,
+      description,
+      amenities,
+      mainImage: previewImage,
+      additionalImages: DEFAULT_ADDITIONAL_IMAGES,
+      host: {
+        name: user.name,
+        avatar: user.avatar || DEFAULT_HOST_AVATAR,
+        userId: user._id,
+      },
+    };
+
+    const res = await fetch("/api/listings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newListing),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      dispatch({ type: "Create_LISTING", payload: data });
+      alert("Listing created!");
+    } else {
+      console.error("Error creating listing:", data.error);
+    }
+  };
 
   const addAmenityHandler = () => {
     const trimmed = amenityInput.trim();
@@ -17,7 +71,7 @@ const Create_Listing = () => {
   };
 
   const handleButtonClick = () => {
-    fileInputRef.current.click(); //this opens file explorer
+    fileInputRef.current.click();
   };
 
   const uploadImageHandler = (e) => {
@@ -41,25 +95,28 @@ const Create_Listing = () => {
         <div className="form_grid">
           <div className="grid_section">
             <div className="info_for_listing">
-              <p>Listing Ttle</p>
-              <input type="text" />
+              <p>Listing Title</p>
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+
               <div className="info_for_listing">
                 <p>Location</p>
-                <select name="locations" id="locations">
-                  <option value="Select a location" id="default-value">
-                    Select a location
-                  </option>
-                  <option value="Cape Town"> Cape Town</option>
-                  <option value="Paris"> Paris</option>
-                  <option value="London"> London</option>
-                  <option value="New York"> New York</option>
-                  <option value="Tokyo"> Tokyo</option>
+                <select value={city} onChange={(e) => setCity(e.target.value)}>
+                  <option value="">Select a location</option>
+                  <option value="Cape Town">Cape Town</option>
+                  <option value="Paris">Paris</option>
+                  <option value="London">London</option>
+                  <option value="New York">New York</option>
+                  <option value="Tokyo">Tokyo</option>
                   <option value="Thailand">Thailand</option>
                   <option value="Johannesburg">Johannesburg</option>
-                  <option value="Durban"> Durban</option>
+                  <option value="Durban">Durban</option>
                   <option value="Mexico">Mexico</option>
                   <option value="Dallas">Dallas</option>
-                  <option value="San Antonio"> San Antonio</option>
+                  <option value="San Antonio">San Antonio</option>
                   <option value="San Diego">San Diego</option>
                 </select>
               </div>
@@ -67,18 +124,10 @@ const Create_Listing = () => {
 
             <div className="info_for_listing listing_description">
               <p>Description</p>
-              <textarea name="description" id="description"></textarea>
-            </div>
-
-            <div className="checkboxes">
-              <div>
-                <input type="checkbox" name="Advanced Cleaning" id="option1" />
-                <label htmlFor="option1">Advanced Cleaning</label>
-              </div>
-              <div>
-                <input type="checkbox" name="Self check-in" id="option2" />
-                <label htmlFor="option2">Self Check-In</label>
-              </div>
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
             </div>
           </div>
 
@@ -86,17 +135,23 @@ const Create_Listing = () => {
             <div className="two_split">
               <div className="info_for_listing price_type">
                 <p>Price</p>
-                <input type="number" placeholder="0" />
+                <input
+                  type="number"
+                  placeholder="0"
+                  value={pricePerNight}
+                  onChange={(e) => setPricePerNight(Number(e.target.value))}
+                />
               </div>
               <div className="info_for_listing price_type">
                 <p>Type</p>
-                <select name="listing_type" id="listing_type">
-                  <option value="Select a location" id="default-value">
-                    Select a location
-                  </option>
+                <select
+                  value={apartmentType}
+                  onChange={(e) => setApartmentType(e.target.value)}
+                >
+                  <option value="">Select type</option>
                   <option value="entire unit">Entire Unit</option>
                   <option value="Room">Room</option>
-                  <option value="loft">loft</option>
+                  <option value="loft">Loft</option>
                   <option value="villa">Whole Villa</option>
                   <option value="cottage">Cottage</option>
                 </select>
@@ -106,15 +161,27 @@ const Create_Listing = () => {
             <div className="three_split">
               <div className="info_for_listing listing_rooms">
                 <p>Guests</p>
-                <input type="number" placeholder="0" />
+                <input
+                  type="number"
+                  value={guests}
+                  onChange={(e) => setGuests(Number(e.target.value))}
+                />
               </div>
               <div className="info_for_listing listing_rooms">
                 <p>Bedrooms</p>
-                <input type="number" placeholder="0" />
+                <input
+                  type="number"
+                  value={bedroomCount}
+                  onChange={(e) => setBedroomCount(Number(e.target.value))}
+                />
               </div>
               <div className="info_for_listing listing_rooms">
                 <p>Bathrooms</p>
-                <input type="number" placeholder="0" />
+                <input
+                  type="number"
+                  value={bathroomCount}
+                  onChange={(e) => setBathroomCount(Number(e.target.value))}
+                />
               </div>
             </div>
 
@@ -145,8 +212,6 @@ const Create_Listing = () => {
           <div className="info_for_listing images_input">
             <div className="adding_images">
               <p>Images</p>
-
-              {/* Hidden input triggered by the visible button */}
               <input
                 type="file"
                 accept="image/*"
@@ -154,17 +219,13 @@ const Create_Listing = () => {
                 ref={fileInputRef}
                 style={{ display: "none" }}
               />
-
-              {/* Styled trigger button */}
               <div
                 className="add_button image_button"
                 onClick={handleButtonClick}
               >
-                <p>Upload Images</p>
+                <p>Upload Image</p>
               </div>
             </div>
-
-            {/* Image preview box */}
 
             <div className={`preview-box ${previewImage ? "centered" : ""}`}>
               {previewImage ? (
@@ -174,17 +235,19 @@ const Create_Listing = () => {
                   className="preview-image"
                 />
               ) : (
-                <p style={{ color: "gray"}}>No images uploaded</p>
+                <p style={{ color: "gray" }}>No image uploaded</p>
               )}
             </div>
           </div>
         </div>
 
         <div className="add_or_cancel">
-          <div className="add_button add_or_cancel_button">
+          <div
+            className="add_button add_or_cancel_button"
+            onClick={handleSubmit}
+          >
             <p>Create</p>
           </div>
-
           <div className="add_button add_or_cancel_button cancel_button">
             <p>Cancel</p>
           </div>
@@ -195,3 +258,4 @@ const Create_Listing = () => {
 };
 
 export default Create_Listing;
+

@@ -3,19 +3,20 @@ import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
 import VerifiedUserOutlinedIcon from "@mui/icons-material/VerifiedUserOutlined";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import { DEFAULT_HOST_AVATAR } from "../../utils/defaultAssets";
 import "./Hosted_By.css";
 
-const Hosted_By = () => {
+const Hosted_By = ({listing}) => {
   return (
     <div className="host-info">
       <div className="host-header">
         <img
-          src="https://media.istockphoto.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.jpg?s=612x612&w=0&k=20&c=tyLvtzutRh22j9GqSGI33Z4HpIwv9vL_MZw_xOE19NQ="
+          src={listing.host?.avatar || DEFAULT_HOST_AVATAR}
           alt="host"
           className="host-avatar"
         />
         <div>
-          <h3 className="host-name">Hosted by Ghazal</h3>
+          <h3 className="host-name">Hosted by {listing.host?.name}</h3>
           <p className="host-join-date">Joined May 2021</p>
         </div>
       </div>
@@ -40,7 +41,7 @@ const Hosted_By = () => {
 
       <div className="host-description">
         <p>
-          <strong>Ghazal is a Superhost</strong>
+          <strong>{listing.host?.name} is a Superhost</strong>
         </p>
         <p>
           Superhosts are experienced, highly rated hosts who are committed to
