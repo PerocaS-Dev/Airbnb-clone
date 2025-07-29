@@ -9,20 +9,22 @@ import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
 import logo from "../../assets/logo.svg";
 import redLogo from "../../assets/red_airbnb_logo.svg";
 import { useAuthContext } from "../../context/AuthContext";
+import {useLogout} from "../../hooks/useLogout"
 import "./Header.css";
 
 const Header = () => {
   const location = useLocation();
+  const { logout } = useLogout();
   const path = location.pathname;
   const [showMenu, setShowMenu] = useState(false);
-  const { isLoggedIn, user, logout } = useAuthContext();
+  const {user} = useAuthContext();
 
   //Page specific conditions
 
   const isAdminPage = path.startsWith("/admin");
   const isHotelInfoPage = path.startsWith("/listing");
   const isLocationsPage = path.startsWith("/locations");
-  const isLogin = path.startsWith("/login");
+  const isAuthenticate = path.startsWith("/Authenticate");
   const isCreateListing = path.startsWith("/create-listing");
   const isReserved = path.startsWith("/reserved");
 
@@ -31,7 +33,7 @@ const Header = () => {
     isAdminPage ||
     isHotelInfoPage ||
     isLocationsPage ||
-    isLogin ||
+    isAuthenticate ||
     isCreateListing ||
     isReserved;
 
@@ -89,9 +91,9 @@ const Header = () => {
             </div>
           )}
 
-          {!isLogin && (
+          {!isAuthenticate && (
             <div className="menu_options">
-              {isLoggedIn ? (
+              {user ? (
                 <span
                   className={`menu_option host ${
                     isMinimalHeader ? "header-light" : "header-dark"
@@ -128,9 +130,9 @@ const Header = () => {
                 </span>
 
                 {showMenu &&
-                  (!isLoggedIn ? (
+                  (!user ? (
                     <div className="menu_box">
-                      <Link to="/login" state={{from: location.pathname}} className="dropdown_item" onClick= {()=>{setShowMenu(false);}} >
+                      <Link to="/Authenticate" state={{from: location.pathname}} className="dropdown_item" onClick= {()=>{setShowMenu(false);}} >
                         Login
                       </Link>
                     </div>

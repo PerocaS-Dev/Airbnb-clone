@@ -41,14 +41,27 @@
     text-decoration: underline;
 }
 
-.login_button {
+.login_or_signup{
+  display: flex;
+  gap: 30px;
+}
+
+.buttons {
   width: 200px;
   height: 35px;
-  background-color: #4f54ef;
+  border: none;
   border-radius: 0.5rem;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+.login_button{
+ background-color: #4f54ef;
+}
+
+.signup_button{
+  background-color: rgb(197 52 75);
 }
