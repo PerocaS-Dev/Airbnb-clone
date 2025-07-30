@@ -2,16 +2,19 @@ import React from "react";
 import { DateProvider } from "./DateContext";
 import { AuthProvider } from "./AuthContext";
 import { ListingProvider } from "./ListingContext";
+import { ReservationProvider } from "./ReservationContext";
 
 const Providers = ({ children }) => {
   return (
-    <ListingProvider>
-      <AuthProvider>
-        <DateProvider>
-          {children}
-        </DateProvider>
-      </AuthProvider>
-    </ListingProvider>
+    <AuthProvider>
+      <ListingProvider>
+        <ReservationProvider>
+          <DateProvider>
+            {children}
+            </DateProvider>
+        </ReservationProvider>
+      </ListingProvider>
+    </AuthProvider>
   );
 };
 

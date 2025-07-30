@@ -1,14 +1,22 @@
-import React from "react";
-import { createContext, useReducer, useContext, useEffect} from "react";
+import React, { createContext, useReducer, useContext, useEffect } from "react";
 
 export const AuthContext = createContext();
 
 const authReducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
+      // Add proper null checks
+      if (!action.payload || !action.payload.user) {
+        return state;
+      }
       return {
         isLoggedIn: true,
-        user: action.payload,
+        user: {
+          _id: action.payload.user?._id, // Safe access
+          email: action.payload.user?.email,
+          token: action.payload.token,
+          isHost: action.payload.user?.role === "host",
+        },
       };
     case "LOGOUT":
       return {
@@ -27,15 +35,31 @@ export const AuthProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'))
-
-    if (user){
-      dispatch({type:'LOGIN', payload: user})
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        const user = JSON.parse(storedUser);
+        if (user && user.token) {
+          dispatch({
+            type: "LOGIN",
+            payload: {
+              user: {
+                ...user,
+                isHost: user.role === "host", // Derive from stored role
+              },
+              token: user.token,
+            },
+          });
+        }
+      } catch (err) {
+        console.error("Failed to parse stored user:", err);
+        localStorage.removeItem("user");
+      }
     }
-  },[])
+  }, []);
 
   return (
-    <AuthContext.Provider value={{...state, dispatch}}>
+    <AuthContext.Provider value={{ ...state, dispatch }}>
       {children}
     </AuthContext.Provider>
   );

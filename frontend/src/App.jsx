@@ -5,7 +5,7 @@ import Locations from "./pages/Locations.jsx";
 import Listing from "./pages/Listing.jsx";
 import Authenticate from "./pages/Authenticate.jsx";
 import Create_Listing from "./pages/Create_Listing.jsx";
-import Admin_Lisings from "./pages/Admin_Lisings.jsx";
+import Admin_Listings from "./pages/Admin_Listings.jsx";
 import Reserved from "./pages/Reserved.jsx";
 
 const App = () => {
@@ -18,9 +18,10 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/locations" element={<Locations />} />
             <Route path= "/listing/:id" element={<Listing/>}/>
-            <Route path= "/Authenticate" element={<Authenticate/>}/>
+            <Route path= "/authenticate" element={<Authenticate/>}/>
             <Route path= "/create-listing" element={<Create_Listing/>}/>
-            <Route path= "/admin" element={<Admin_Lisings/>}/>
+            <Route path= "/create-listing/:id" element={<Create_Listing/>}/>
+            <Route path= "/admin" element={<Admin_Listings/>}/>
             <Route path= "/reserved" element={<Reserved/>}/>
           </Routes>
         </div>

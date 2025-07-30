@@ -1,33 +1,36 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuthContext } from "../context/AuthContext";
-import {useSignup} from '../hooks/useSignup'
-import {useLogin} from '../hooks/useLogin'
-import { Link } from "react-router-dom";
+import { useSignup } from "../hooks/useSignup";
+import { useLogin } from "../hooks/useLogin";
 import "./Authenticate.css";
 
-const Authenticate = () => {
+const Authenticate = ({ isHostFlow = false }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLogin, setIsLogin] = useState(true);
+  const [role, setRole] = useState("guest");
   const { signup, error, isLoading } = useSignup("");
-  const { login, error: login_error, isLoading:login_isLoading } = useLogin("");
+  const { login, error: login_error, isLoading: login_isLoading } = useLogin();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const redirectPath =
-    location.state?.from === "host" ? "/admin" : location.state?.from || "/";
+  const redirectPath = role === "Host" ? "/admin" : location.state?.from || "/";
 
-  const loginHandler = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    await login(email, password);
-    // navigate(redirectPath);
-
+    const success = await login(email, password, role);
+    if (success) {
+      // Get the original path or use home as fallback
+      const fromPath = location.state?.from?.pathname || "/";
+      // Redirect hosts to admin, others to their original path
+      navigate(role === "host" ? "/admin" : fromPath);
+    }
   };
 
-  const signupHandler = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    await signup(email, password);
-    // navigate(redirectPath);
+    const success = await signup(email, password, role);
+    if (success) navigate(redirectPath);
   };
 
   return (
@@ -54,24 +57,43 @@ const Authenticate = () => {
         />
       </div>
 
+      <div className="input_section">
+        <p>Sign-Up/Login as a:</p>
+        <select
+          name="role"
+          id="role"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          required
+        >
+          <option value="guest">Guest</option>
+          <option value="host">Host</option>
+        </select>
+      </div>
+
       <div className="forgot_password">
         <p>Forgot Password ?</p>
       </div>
       <div className="login_or_signup">
-        <button className="buttons login_button" disabled={login_isLoading} onClick={loginHandler}>
+        <button
+          className="buttons login_button"
+          disabled={login_isLoading}
+          onClick={handleLogin}
+        >
           Login
         </button>
 
         <button
           className="buttons signup_button"
           disabled={isLoading}
-          onClick={signupHandler}
+          onClick={handleSignup}
         >
           Sign Up
         </button>
       </div>
-      {error && <div className="error">{error}</div>}
-      {error && <div className="error">{login_error}</div>}
+      {(error || login_error) && (
+        <div className="error">{error || login_error}</div>
+      )}
     </div>
   );
 };

@@ -1,25 +1,18 @@
-import React from "react";
+
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
-import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
 import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_red.css";
 import { useDateContext } from "../../context/DateContext";
 import { useAuthContext } from "../../context/AuthContext";
+import { useReservationContext } from "../../context/ReservationContext";
 import { differenceInCalendarDays } from "date-fns";
 import "./Reserve_Section.css";
 
-const Reserve_Section = ({listing}) => {
+const Reserve_Section = ({ listing }) => {
   const { startDate, endDate, setDates } = useDateContext(); //using my custom context
-  const {isLoggedIn, user, logout} = useAuthContext();
-
-  const isLoggedInHandler = () =>{
-    if(isLoggedIn){
-      alert("Your Reservation Is Successful!");
-    }else{
-      alert("Please login to make a reservation.");
-    }
-  }
+  const { user } = useAuthContext();
+  const { dispatch: reservationDispatch } = useReservationContext();
 
   const handleStartDateChange = (selectedDates) => {
     if (selectedDates.length > 0) {
@@ -30,6 +23,46 @@ const Reserve_Section = ({listing}) => {
   const handleEndDateChange = (selectedDates) => {
     if (selectedDates.length > 0) {
       setDates(startDate, selectedDates[0]);
+    }
+  };
+
+  const reserveListing = async () => {
+    if (!user || !user.token) {
+      alert("Please log in to make a reservation.");
+      return;
+    }
+
+    if (!startDate || !endDate) {
+      alert("Please select both check-in and check-out dates.");
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/reservations", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({
+          listingId: listing._id,
+          startDate,
+          endDate,
+          totalPrice: total,
+          status: "confirmed", // Add status
+        }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(`Reservation failed: ${data.error}`);
+      } else {
+        alert("Reservation successful!");
+        reservationDispatch({ type: "ADD_RESERVATION", payload: data });
+      }
+    } catch (err) {
+      console.error("Failed to reserve:", err.message);
+      alert("Something went wrong while reserving.");
     }
   };
 
@@ -101,7 +134,9 @@ const Reserve_Section = ({listing}) => {
           </div>
         </div>
 
-        <button className="reserve_button" onClick={isLoggedInHandler}>Reserve</button>
+        <button className="reserve_button" onClick={reserveListing}>
+          Reserve
+        </button>
 
         <div className="message">
           <p>You won't be charged yet</p>

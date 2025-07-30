@@ -27,10 +27,10 @@ const listingSchema = new Schema({
   host: {
     name: { type: String, required: true },
     avatar: { type: String, default: "https://media.istockphoto.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.jpg?s=612x612&w=0&k=20&c=tyLvtzutRh22j9GqSGI33Z4HpIwv9vL_MZw_xOE19NQ=" },
-    userId: { type: String }, // NOT required, for backward compatibility
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
   },
   amenities: [String],
   description: String,
 });
 
-module.exports = mongoose.model("listing", listingSchema); // will automatically create a collection named Workouts for us
+module.exports = mongoose.model("Listing", listingSchema); // will automatically create a collection named Workouts for us

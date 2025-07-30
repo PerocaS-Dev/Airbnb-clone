@@ -1,10 +1,12 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useAuthContext } from "../context/AuthContext";
 import { useListingContext } from "../context/ListingContext";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   DEFAULT_ADDITIONAL_IMAGES,
   DEFAULT_HOST_AVATAR,
 } from "../utils/defaultAssets";
+import Admin_Buttons from "../components/shared_components/Admin_Buttons";
 import "./Create_Listing.css";
 
 const Create_Listing = () => {
@@ -19,6 +21,9 @@ const Create_Listing = () => {
   const [amenityInput, setAmenityInput] = useState("");
   const [amenities, setAmenities] = useState([]);
   const [previewImage, setPreviewImage] = useState(null);
+  const navigate = useNavigate();
+  const { id: listingId } = useParams();
+  const isEditMode = !!listingId;
 
   const fileInputRef = useRef(null);
   const { user } = useAuthContext();
@@ -26,6 +31,11 @@ const Create_Listing = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!user || !user.token) {
+      alert("Please make sure you are logged in before creating a listing.");
+      return;
+    }
 
     const newListing = {
       title,
@@ -40,25 +50,48 @@ const Create_Listing = () => {
       mainImage: previewImage,
       additionalImages: DEFAULT_ADDITIONAL_IMAGES,
       host: {
-        name: user.name,
+        name: user.name || user.email || "Anonymous Host",
         avatar: user.avatar || DEFAULT_HOST_AVATAR,
         userId: user._id,
       },
     };
 
-    const res = await fetch("/api/listings", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newListing),
-    });
+    console.log("Submitting listing:", newListing); 
 
-    const data = await res.json();
-
-    if (res.ok) {
-      dispatch({ type: "Create_LISTING", payload: data });
-      alert("Listing created!");
+    if (listingId) {
+      // UPDATE
+      await fetch(`/api/listings/${listingId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify(newListing),
+      });
     } else {
-      console.error("Error creating listing:", data.error);
+      // CREATE
+      try {
+        const res = await fetch("/api/listings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newListing),
+        });
+
+        const data = await res.json();
+        console.log("Server response:", data); 
+
+        if (res.ok) {
+          dispatch({ type: "Create_LISTING", payload: data });
+          alert("Listing created!");
+          navigate(`/create-listing/${data._id}`);
+        } else {
+          alert(`Error: ${data.error || "Unknown error"}`);
+          console.error("Create failed:", data);
+        }
+      } catch (err) {
+        console.error("Error submitting listing:", err);
+        alert("Network or server error.");
+      }
     }
   };
 
@@ -82,11 +115,39 @@ const Create_Listing = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchListing = async () => {
+      if (!listingId) return;
+
+      try {
+        const res = await fetch(`/api/listings/${listingId}`);
+        const data = await res.json();
+
+        if (res.ok) {
+          setTitle(data.title);
+          setCity(data.city);
+          setDescription(data.description);
+          setPricePerNight(data.pricePerNight);
+          setApartmentType(data.apartmentType);
+          setGuests(data.guests);
+          setBedroomCount(data.bedroomCount);
+          setBathroomCount(data.bathroomCount);
+          setAmenities(data.amenities || []);
+          setPreviewImage(data.mainImage);
+        } else {
+          console.error("Error loading listing:", data.error);
+        }
+      } catch (err) {
+        console.error("Failed to fetch listing:", err);
+      }
+    };
+
+    fetchListing();
+  }, [listingId]);
+
   return (
     <div className="create_listing">
-      <div className="view_listings_button">
-        <p>View my listings</p>
-      </div>
+      <Admin_Buttons />
       <div className="new_listing_form_container">
         <div className="form_title">
           <p>Create Listing</p>
@@ -248,7 +309,10 @@ const Create_Listing = () => {
           >
             <p>Create</p>
           </div>
-          <div className="add_button add_or_cancel_button cancel_button">
+          <div
+            className="add_button add_or_cancel_button cancel_button"
+            onClick={() => navigate("/admin")}
+          >
             <p>Cancel</p>
           </div>
         </div>
@@ -258,4 +322,3 @@ const Create_Listing = () => {
 };
 
 export default Create_Listing;
-

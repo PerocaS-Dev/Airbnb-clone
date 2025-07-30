@@ -2,47 +2,53 @@ const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 
 const createToken = (_id) => {
-    jwt.sign({_id}, process.env.SECRET, {expiresIn: '3d'})
+  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '3d' });
+};
 
-}
 
 //login user
-const loginUser = async (req, res) =>{
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
 
-    const {email, password} = req.body
+  try {
+    const user = await User.login(email, password);
+    const token = createToken(user._id);
 
-    try {
-        const user = await User.login(email, password)
+    res.status(200).json({
+      user: {
+        _id: user._id,
+        email: user.email,
+        role: user.role,
+      },
+      token,
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
-        //create a token
-        const token = createToken(user._id)
-
-        res.status(200).json({email, token})
-        
-    } catch (error) {
-        res.status(400).json({error: error.message})
-    }
-
-}
 
 
 //sign up user
-const signupUser = async (req, res) =>{
+const signupUser = async (req, res) => {
+  const { email, password, role = "guest" } = req.body;
 
-    const {email, password} = req.body
-    try {
-        const user = await User.signup(email, password)
+  try {
+    const user = await User.signup(email, password, role);
+    const token = createToken(user._id);
 
-        //create a token
-        const token = createToken(user._id)
+    res.status(200).json({
+      user: {
+        _id: user._id,
+        email: user.email,
+        role: user.role,
+      },
+      token,
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
-        res.status(200).json({email, token})
-        
-    } catch (error) {
-        res.status(400).json({error: error.message})
-        
-    }
-
-}
 
 module.exports = { signupUser, loginUser}

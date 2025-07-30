@@ -11,10 +11,15 @@ export const listingsReducer = (state, action) => {
       };
     case "Create_LISTING":
       return {
-        listings:[action.payload, ...state.listings]
+        listings: [action.payload, ...state.listings],
       };
+    case "DELETE_LISTING":
+      return {
+        listings: state.listings.filter((l) => l._id !== action.payload),
+      };
+
     default:
-      return state
+      return state;
   }
 };
 
@@ -24,7 +29,9 @@ export const ListingProvider = ({ children }) => {
   });
 
   return (
-    <ListingContext.Provider value={{...state, dispatch}}>{children}</ListingContext.Provider>
+    <ListingContext.Provider value={{ ...state, dispatch }}>
+      {children}
+    </ListingContext.Provider>
   );
 };
 

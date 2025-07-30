@@ -24,7 +24,7 @@ const Header = () => {
   const isAdminPage = path.startsWith("/admin");
   const isHotelInfoPage = path.startsWith("/listing");
   const isLocationsPage = path.startsWith("/locations");
-  const isAuthenticate = path.startsWith("/Authenticate");
+  const isAuthenticate = path.startsWith("/authenticate");
   const isCreateListing = path.startsWith("/create-listing");
   const isReserved = path.startsWith("/reserved");
 
@@ -99,11 +99,11 @@ const Header = () => {
                     isMinimalHeader ? "header-light" : "header-dark"
                   }`}
                 >
-                  {user.name}
+                  {user.email}
                 </span>
               ) : (
                 <Link
-                  to="/login"
+                  to="/authenticate"
                   state={{from:"host"}}
                   className={`menu_option host ${
                     isMinimalHeader ? "header-light" : "header-dark"
@@ -132,7 +132,7 @@ const Header = () => {
                 {showMenu &&
                   (!user ? (
                     <div className="menu_box">
-                      <Link to="/Authenticate" state={{from: location.pathname}} className="dropdown_item" onClick= {()=>{setShowMenu(false);}} >
+                      <Link to="/authenticate" state={{from: location.pathname}} className="dropdown_item" onClick= {()=>{setShowMenu(false);}} >
                         Login
                       </Link>
                     </div>

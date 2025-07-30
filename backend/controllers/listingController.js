@@ -60,6 +60,18 @@ const getListingPreviewByCity = async (req, res) => {
   }
 };
 
+// controllers/listingController.js
+const getUserListings = async (req, res) => {
+  const userId = req.user._id; // You must protect this route with middleware
+  try {
+    const listings = await Listing.find({ 'host.userId': userId });
+    res.status(200).json(listings);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+
 // Function to Create a new listing - FOR ADMIN
 
 const createListing = async (req, res) => {
@@ -116,6 +128,7 @@ module.exports = {
   createListing,
   getListings,
   getListing,
+  getUserListings,
   deleteListing,
   updateListing,
   getListingPreview,

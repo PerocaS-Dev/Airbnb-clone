@@ -5,7 +5,7 @@ import { useListingContext } from "../context/ListingContext";
 import { useAuthContext } from "../context/AuthContext";
 import "./Admin_Listings.css";
 
-const Admin_Lisings = () => {
+const Admin_Listings = () => {
   const { listings } = useListingContext();
   const { user } = useAuthContext();
 
@@ -26,4 +26,4 @@ const Admin_Lisings = () => {
   );
 };
 
-export default Admin_Lisings;
+export default Admin_Listings;
