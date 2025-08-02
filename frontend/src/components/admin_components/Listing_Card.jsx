@@ -19,7 +19,7 @@ const Listing_Card = ({ listing }) => {
     if (!confirm) return;
 
     try {
-      const response = await fetch(`/api/listings/${listing._id}`, {
+      const response = await fetch(`${process.env.API_BASE_URL}/api/listings/${listing._id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${user.token}`,

@@ -38,7 +38,7 @@ const Reserve_Section = ({ listing }) => {
     }
 
     try {
-      const res = await fetch("/api/reservations", {
+      const res = await fetch(`${process.env.API_BASE_URL}/api/reservations`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

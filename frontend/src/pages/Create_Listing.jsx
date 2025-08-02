@@ -60,7 +60,7 @@ const Create_Listing = () => {
 
     if (listingId) {
       // UPDATE
-      await fetch(`/api/listings/${listingId}`, {
+      await fetch(`${process.env.API_BASE_URL}/api/listings/${listingId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -71,7 +71,7 @@ const Create_Listing = () => {
     } else {
       // CREATE
       try {
-        const res = await fetch("/api/listings", {
+        const res = await fetch(`${process.env.API_BASE_URL}/api/listings`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(newListing),
@@ -120,7 +120,7 @@ const Create_Listing = () => {
       if (!listingId) return;
 
       try {
-        const res = await fetch(`/api/listings/${listingId}`);
+        const res = await fetch(`${process.env.API_BASE_URL}/api/listings/${listingId}`);
         const data = await res.json();
 
         if (res.ok) {

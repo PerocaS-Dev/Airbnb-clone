@@ -1,12 +1,16 @@
 require("dotenv").config();
+const cors = require("cors");
 require("./models");
 const express = require("express"); // importing express
 const mongoose = require("mongoose");
 const listingsRoutes = require("./routes/listings");
-const reservationRoutes = require('./routes/reservationRoute');
+const reservationRoutes = require("./routes/reservationRoute");
 const userRoutes = require("./routes/user");
 
-
+app.use(cors({
+  origin: "https://peroca-air-bnb-clone.netlify.app",  // Allow Netlify frontend
+  credentials: true
+}));
 
 // creating the express app
 const app = express();
@@ -25,6 +29,7 @@ app.use((req, res, next) => {
 // })
 
 //use the imported listing routes
+
 app.use("/api/listings", listingsRoutes);
 app.use("/api/reservations", reservationRoutes);
 app.use("/api/user", userRoutes);
@@ -34,8 +39,9 @@ mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
     //listen for requests and start the server on the port
-    app.listen(process.env.PORT, () => {
-      console.log("connected to db and listening on port",process.env.PORT);
+    const PORT = process.env.PORT || 4020;
+    app.listen(PORT, () => {
+      console.log("connected to db and listening on port", PORT);
     });
   })
   .catch((error) => {

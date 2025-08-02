@@ -16,7 +16,7 @@ const Listing = () => {
 
   useEffect(() => {
     const fetchListings = async () => {
-      const response = await fetch(`/api/listings/${id}`);
+      const response = await fetch(`${process.env.API_BASE_URL}/api/listings/${id}`);
       console.log("Listing ID from URL:", id);
       const json = await response.json();
 

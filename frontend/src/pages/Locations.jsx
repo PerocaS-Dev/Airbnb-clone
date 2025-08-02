@@ -13,7 +13,7 @@ const Locations = () => {
 
   useEffect(() => {
     const fetchListings = async () => {
-      const response = await fetch("/api/listings");
+      const response = await fetch(`${process.env.API_BASE_URL}/api/listings`);
       const json = await response.json();
 
       if (response.ok) {
