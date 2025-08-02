@@ -26,9 +26,9 @@ app.use((req, res, next) => {
 });
 
 //Route or Request handler: These will be unique per request. so each button press will have its own request handler.
-// app.get('/', (req, res) => {
-//     res.json({mssg: 'Welcome to the app'})
-// })
+app.get("/", (req, res) => {
+  res.send("Backend is running!");
+});
 
 //use the imported listing routes
 
