@@ -12,8 +12,8 @@ const Reserved = () => {
   useEffect(() => {
     const fetchReservations = async () => {
       const endpoint = user?.isHost
-        ? `${process.env.API_BASE_URL}/api/reservations/host`
-        : `${process.env.API_BASE_URL}/api/reservations/my`;
+        ? `${process.env.REACT_APP_API_BASE_URL}/api/reservations/host`
+        : `${process.env.REACT_APP_API_BASE_URL}/api/reservations/my`;
 
       try {
         const res = await fetch(endpoint, {
