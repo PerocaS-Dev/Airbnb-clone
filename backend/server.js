@@ -7,13 +7,15 @@ const listingsRoutes = require("./routes/listings");
 const reservationRoutes = require("./routes/reservationRoute");
 const userRoutes = require("./routes/user");
 
-app.use(cors({
-  origin: "https://peroca-air-bnb-clone.netlify.app",  // Allow Netlify frontend
-  credentials: true
-}));
-
 // creating the express app
 const app = express();
+
+app.use(
+  cors({
+    origin: "https://peroca-air-bnb-clone.netlify.app", // Allow Netlify frontend
+    credentials: true,
+  })
+);
 
 //Middleware: Runs on every request. Like a bouncer checking names before letting people in
 app.use(express.json()); // This middleware works with a post request and checks if there is data or body to the request
