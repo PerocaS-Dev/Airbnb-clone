@@ -6,15 +6,18 @@ export const useLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { dispatch } = useAuthContext();
 
-  const login = async (email, password, role = 'guest') => {
+  const login = async (email, password, role = "guest") => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/user/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password, role}),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/api/user/login`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, role }),
+      }
+    );
 
     try {
       const json = await response.json();
@@ -27,14 +30,16 @@ export const useLogin = () => {
       if (response.ok) {
         const { user, token } = json;
         //save the user to local storage
-        localStorage.setItem("user", JSON.stringify({ ...user, token, role }));
+        localStorage.setItem("user", JSON.stringify({ ...user, token }));
 
         //update the auth context
-        dispatch({ type: "LOGIN", payload: { 
-            ...user, 
+        dispatch({
+          type: "LOGIN",
+          payload: {
+            user,
             token,
-            isHost: user.role === 'host' // Set isHost based on role
-          } });
+          },
+        });
 
         setIsLoading(false);
         return true;
